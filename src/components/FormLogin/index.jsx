@@ -9,19 +9,19 @@ import {
     Text,
     Box,
     useBreakpointValue
-} from '@chakra-ui/react'
-import { Link as ChakraLink } from '@chakra-ui/react';
-import { Link as RouterLink } from 'react-router-dom';
-import { useForm } from "react-hook-form";
-import { useContext } from "react";
-import { loginSchema } from "./schema";
+} from "@chakra-ui/react"
+import { Link as ChakraLink } from "@chakra-ui/react"
+import { Link as RouterLink } from "react-router-dom"
+import { useForm } from "react-hook-form"
+import { useContext } from "react"
+import { loginSchema } from "./schema"
 import { yupResolver } from "@hookform/resolvers/yup"
 import imgLogin from "../../img/img.png"
-import { UserContext } from '../../providers/UserContext';
+import { UserContext } from "../../providers/UserContext"
 
 const FormLogin = () => {
-    const { userLogin, loadingLogin } = useContext(UserContext);
-    const isImageVisible = useBreakpointValue({ base: false, md: true });
+    const { userLogin, loadingLogin } = useContext(UserContext)
+    const isImageVisible = useBreakpointValue({ base: false, md: true })
 
     const {
         register,
@@ -31,29 +31,29 @@ const FormLogin = () => {
     } = useForm({
         mode: "onBlur",
         resolver: yupResolver(loginSchema),
-    });
+    })
 
 
     const submit = (data) => {
-        userLogin(data);
-        reset();
-    };
+        userLogin(data)
+        reset()
+    }
 
     return (
-        <Flex backgroundColor={"white.50"} w={{ base: "1200px", md: "800px" }} h={{ base: "1000px", md: "530px" }} borderRadius={"5px"} marginInline={"30px"} boxShadow={"rgba(149, 157, 165, 0.2) 0px 8px 24px"} justify={"space-between"} borderLeft={"5px solid"} borderColor={"green.100"}>
+        <Flex backgroundColor={"white.50"} w={{ base: "1200px", md: "800px" }} h={{ base: "900px", md: "530px" }} borderRadius={"5px"} marginInline={"30px"} boxShadow={"rgba(149, 157, 165, 0.2) 0px 8px 24px"} justify={"space-between"} borderLeft={"5px solid"} borderColor={"green.100"}>
             <Flex justifyContent={"center"} width={"100%"} padding={"20"} flexDirection={"column"}>
                 <form onSubmit={handleSubmit(submit)}>
                     <Box height={"100%"} flexDir={"column"} gap={"20px"} display={"flex"}>
                         <Text fontSize={{ base: "3xl", md: "2xl" }} fontWeight={"extrabold"} color={"green.200"}>Login</Text>
                         <FormControl isRequired isInvalid={errors.email ? true : false}>
                             <FormLabel fontSize={{ base: "2xl", md: "xl" }} fontWeight={"extrabold"} color={"green.200"}>Email</FormLabel>
-                            <Input placeholder='Digite seu email...' h={{ base: "80px", md: "30px" }} backgroundColor={"green.50"} color={"green.100"} fontSize={{ base: "2xl", md: "xl" }} fontWeight={"medium"} {...register('email')} />
-                            <FormErrorMessage fontSize={{ base: "2xl", md: "xl" }} >{errors.email?.message}</FormErrorMessage>
+                            <Input placeholder="Digite seu email..." h={{ base: "80px", md: "30px" }} backgroundColor={"green.50"} color={"green.100"} fontSize={{ base: "2xl", md: "xl" }} fontWeight={"medium"} {...register("email")} />
+                            <FormErrorMessage fontSize={{ base: "2xl", md: "lg" }} >{errors.email?.message}</FormErrorMessage>
                         </FormControl>
                         <FormControl isRequired isInvalid={errors.password ? true : false}>
                             <FormLabel fontSize={{ base: "2xl", md: "xl" }} fontWeight={"extrabold"} color={"green.200"}>Senha</FormLabel>
-                            <Input placeholder='Digite sua senha...' h={{ base: "80px", md: "30px" }} type="password" backgroundColor={"green.50"} color={"green.100"} fontSize={{ base: "2xl", md: "xl" }} fontWeight={"medium"} {...register('password')} />
-                            <FormErrorMessage fontSize={{ base: "2xl", md: "xl" }} >{errors.password?.message}</FormErrorMessage>
+                            <Input placeholder="Digite sua senha..." h={{ base: "80px", md: "30px" }} type="password" backgroundColor={"green.50"} color={"green.100"} fontSize={{ base: "2xl", md: "xl" }} fontWeight={"medium"} {...register("password")} />
+                            <FormErrorMessage fontSize={{ base: "2xl", md: "lg" }} >{errors.password?.message}</FormErrorMessage>
                         </FormControl>
                         <Button type="submit" h={{ base: "80px", md: "30px" }} fontSize={{ base: "2xl", md: "xl" }} backgroundColor={"green.50"} color={"green.200"} border={"1px solid"} borderColor={"green.200"} marginTop={"10px"} disabled={loadingLogin}>
                             {loadingLogin ? "Entrando..." : "Entrar"}
