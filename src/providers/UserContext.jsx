@@ -10,6 +10,7 @@ export const UserProvider = ({ children }) => {
     const navigate = useNavigate()
     const [user, setUser] = useState([])
     const toast = useToast()
+    const [isOpenModalUser, setIsOpenModalUser] = useState(false)
 
     const [loadingLogin, setLoadingLogin] = useState(false)
 
@@ -71,24 +72,56 @@ export const UserProvider = ({ children }) => {
         }
     }
 
-    // useEffect(() => {
-    //     const token = localStorage.getItem("@TOKEN")
-    //     (async () => {
-    //         if (token) {
-    //             try {
-    //                 const response = await api.get("/profile", {
-    //                     headers: {
-    //                         Authorization: `Bearer ${token}`,
-    //                     },
-    //                 })
-    //                 navigate("/")
-    //                 setUser(response.data)
-    //             } catch (err) {
-    //                 window.localStorage.clear()
-    //             }
-    //         }
-    //     })()
-    // }, [])
+    const [loadingAttUser, setLoadingAttUser] = useState(false)
+
+    const updateContact = async (userData) => {
+        const token = localStorage.getItem("@TOKEN")
+        try {
+            setLoadingAttUser(true)
+            const response = await api.patch(`/users/${user.id}`, userData, {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
+            })
+            toast({
+                title: "Conta atualizada com sucesso!",
+                position: "top-right",
+                status: "success",
+                duration: 5000,
+                isClosable: true,
+            })
+        } catch (error) {
+            toast({
+                title: "Erro ao atualizar!",
+                position: "top-right",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            })
+            console.log(error)
+        } finally {
+            setLoadingAttUser(false)
+        }
+    }
+
+    useEffect(() => {
+        const token = localStorage.getItem("@TOKEN");
+        (async () => {
+            if (token) {
+                try {
+                    const response = await api.get("/users/profile", {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    })
+                    navigate("/")
+                    setUser(response.data)
+                } catch (err) {
+                    window.localStorage.clear()
+                }
+            }
+        })()
+    }, [])
 
     return (
         <UserContext.Provider
@@ -98,7 +131,11 @@ export const UserProvider = ({ children }) => {
                 userRegister,
                 loadingRegister,
                 user,
-                setUser
+                setUser,
+                isOpenModalUser,
+                setIsOpenModalUser,
+                loadingAttUser,
+                updateContact
             }}
         >
             {children}

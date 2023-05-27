@@ -6,9 +6,9 @@ import { Header } from "../../components/Header"
 const LoginPage = () => {
 
     return (
-        <Box>
+        <Box h={"100vh"}>
             <Header />
-            <Flex backgroundColor={"white.100"} height={"86.8vh"} h={{ base: "230vh", md: "86.8vh" }} width={"100vw"} w={{ base: "230vw", md: "100vw" }} alignItems={"center"} justifyContent={"center"}>
+            <Flex backgroundColor={"white.100"} h={{ base: "230vh", md: "100%" }} w={{ base: "230vw", md: "100%" }} alignItems={"center"} justifyContent={"center"}>
                 <FormLogin />
             </Flex >
         </Box>

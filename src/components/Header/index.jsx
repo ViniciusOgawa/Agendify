@@ -10,48 +10,67 @@ import {
 } from "@chakra-ui/react"
 import { HamburgerIcon, AddIcon, EditIcon, ArrowForwardIcon } from "@chakra-ui/icons"
 import imgHeader from "../../img/header.png"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
+import { UserContext } from "../../providers/UserContext"
+import { useNavigate } from "react-router-dom"
+import { ContactContext } from "../../providers/ContactContext"
 
 
 const Header = () => {
     const [isMobile, setIsMobile] = useState(false)
     const [isLargerScreen] = useMediaQuery("(min-width: 768px)")
     const url = window.location.href.substring(window.location.href.lastIndexOf("/") + 1)
-    const isLoginPage = url !== "login";
-    const isRegisterPage = url !== "register";
+    const isLoginPage = url !== "login"
+    const isRegisterPage = url !== "register"
+    const navigate = useNavigate()
 
-    console.log(isLoginPage + isRegisterPage == 1)
+    const { setIsOpenModalUser, setUser } = useContext(UserContext)
+    const { setIsOpenModalCreateContact } = useContext(ContactContext)
+
+    const logout = () => {
+        localStorage.clear()
+        navigate("/login")
+        setUser([])
+    }
+
+    const handleOpenUser = () => {
+        setIsOpenModalUser(true)
+    }
+
+    const handleOpenContact = () => {
+        setIsOpenModalCreateContact(true)
+    }
 
     useEffect(() => {
         setIsMobile(!isLargerScreen)
     }, [isLargerScreen])
 
     return (
-        <Flex backgroundImage={imgHeader} backgroundSize="cover" backgroundPosition="center" backgroundRepeat="no-repeat" minWidth={"100vw"} w={{ base: "230vw", md: "100vw" }} h={{ base: "200px", md: "100px" }} alignItems={"center"} justifyContent={"center"}>
-            <Flex width={"70%"} justifyContent={"space-between"} alignItems={"center"}>
-                <Text fontWeight={"bold"} fontSize={{ base: "3xl", md: "2xl" }}>Agendify</Text>
+        <Flex overflow={"hidden"} backgroundImage={imgHeader} backgroundSize="cover" backgroundPosition="center" backgroundRepeat="no-repeat" w={"100%"} h={"100px"} alignItems={"center"} justifyContent={"center"}>
+            <Flex width={"90%"} justifyContent={"space-between"} alignItems={"center"} maxWidth={"1200px"}>
+                <Text fontWeight={"bold"} fontSize={"2xl"}>Agendify</Text>
                 {isLoginPage + isRegisterPage != 1 && (
                     <>
                         {isMobile ? (
                             <Menu>
-                                <MenuButton as={Button} backgroundColor="green.200">
+                                <MenuButton as={Button} backgroundColor={"transparent"} >
                                     <HamburgerIcon />
                                 </MenuButton>
                                 <MenuList>
-                                    <MenuItem>Logout</MenuItem>
-                                    <MenuItem>Atualizar informações</MenuItem>
-                                    <MenuItem>Adicionar contato</MenuItem>
+                                    <MenuItem onClick={() => logout()}>Logout</MenuItem>
+                                    <MenuItem onClick={handleOpenUser}>Atualizar informações</MenuItem>
+                                    <MenuItem onClick={handleOpenContact}>Adicionar contato</MenuItem>
                                 </MenuList>
                             </Menu>
                         ) : (
                             <Flex gap="10px">
-                                <Button backgroundColor="transparent">
+                                <Button backgroundColor="transparent" onClick={handleOpenContact}>
                                     <AddIcon />
                                 </Button>
-                                <Button backgroundColor="transparent">
+                                <Button backgroundColor="transparent" onClick={handleOpenUser}>
                                     <EditIcon />
                                 </Button>
-                                <Button backgroundColor="transparent">
+                                <Button backgroundColor="transparent" onClick={() => logout()}>
                                     <ArrowForwardIcon />
                                 </Button>
                             </Flex>
