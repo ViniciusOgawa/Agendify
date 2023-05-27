@@ -9,6 +9,7 @@ import { ModalUpdateContact } from "../../components/ModalUpdateContact";
 import { ModalUpdateUser } from "../../components/ModalUpdateUser";
 import { ModalCreateContact } from "../../components/ModalCreateContact";
 import { UserContext } from "../../providers/UserContext";
+import { CardUser } from "../../components/CardUser";
 
 const HomePage = () => {
   const token = localStorage.getItem("@TOKEN");
@@ -54,12 +55,14 @@ const HomePage = () => {
       <Box h={"100vh"}>
         <Header />
         <Flex
-          overflow={"hidden"}
           h={"100%"}
           w={"100%"}
           alignItems={"center"}
           justifyContent={"center"}
+          flexDirection={"column"}
+          marginBottom={"20px"}
         >
+          <CardUser />
           <UnorderedList
             styleType="none"
             margin={"20px"}

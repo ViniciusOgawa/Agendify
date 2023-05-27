@@ -85,7 +85,7 @@ export const UserProvider = ({ children }) => {
 
     try {
       setLoadingAttUser(true);
-      await api.patch(`/users/${user.id}`, userData, {
+      const response = await api.patch(`/users/${user.id}`, userData, {
         headers: {
           authorization: `Bearer ${token}`,
         },
@@ -97,6 +97,7 @@ export const UserProvider = ({ children }) => {
         duration: 5000,
         isClosable: true,
       });
+      setUser(response.data);
     } catch (error) {
       toast({
         title: "Erro ao atualizar!",
