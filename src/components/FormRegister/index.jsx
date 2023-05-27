@@ -77,7 +77,7 @@ const FormRegister = () => {
                     h={"30px"}
                     backgroundColor={"green.50"}
                     color={"green.100"}
-                    fontSize={""}
+                    fontSize={"xl"}
                     fontWeight={"medium"}
                     {...register("email")}
                   />
