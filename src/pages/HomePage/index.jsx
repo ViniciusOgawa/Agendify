@@ -1,4 +1,4 @@
-import { Box, UnorderedList, ListItem, Flex } from "@chakra-ui/react";
+import { Box, UnorderedList, ListItem, Flex, Text } from "@chakra-ui/react";
 import { CardContact } from "../../components/CardContact";
 import { Header } from "../../components/Header";
 import { useNavigate } from "react-router-dom";
@@ -14,9 +14,16 @@ const HomePage = () => {
   const token = localStorage.getItem("@TOKEN");
   const navigate = useNavigate();
 
-  const { contacts, setContacts, isOpenModalUpdateContact } =
-    useContext(ContactContext);
+  const {
+    contacts,
+    setContacts,
+    isOpenModalUpdateContact,
+    isOpenModalCreateContact,
+    contactDeleted,
+  } = useContext(ContactContext);
   const { user } = useContext(UserContext);
+
+  const contactsExists = contacts.length > 0;
 
   useEffect(() => {
     (async () => {
@@ -31,7 +38,7 @@ const HomePage = () => {
         console.log(error);
       }
     })();
-  }, [isOpenModalUpdateContact]);
+  }, [isOpenModalUpdateContact, isOpenModalCreateContact, contactDeleted]);
 
   useEffect(() => {
     if (user.length == 0) {
@@ -60,13 +67,35 @@ const HomePage = () => {
             w={"90%"}
             maxWidth={"1200px"}
           >
-            {contacts.map((element) => {
-              return (
-                <ListItem marginTop={"40px"} w={"100%"} key={element.id}>
+            {contactsExists ? (
+              contacts.map((element) => (
+                <ListItem marginTop="40px" w="100%" key={element.id}>
                   <CardContact contact={element} />
                 </ListItem>
-              );
-            })}
+              ))
+            ) : (
+              <ListItem
+                backgroundColor="white.50"
+                marginInline="none"
+                w="100%"
+                maxWidth="1200px"
+                h={{ base: "150px", md: "150px" }}
+                borderRadius="5px"
+                padding={"15px"}
+                boxShadow="rgba(149, 157, 165, 0.2) 0px 8px 24px"
+                justify="space-between"
+                borderLeft="5px solid"
+                borderColor="green.100"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                marginTop="40px"
+              >
+                <Text fontSize="xl" fontWeight="">
+                  Você ainda não cadastrou nenhum contato
+                </Text>
+              </ListItem>
+            )}
           </UnorderedList>
         </Flex>
       </Box>

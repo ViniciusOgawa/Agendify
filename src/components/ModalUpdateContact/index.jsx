@@ -73,7 +73,7 @@ const ModalUpdateContact = () => {
             >
               <FormControl isInvalid={errors.email ? true : false}>
                 <FormLabel
-                  fontSize={{ base: "2xl", md: "xl" }}
+                  fontSize={"xl"}
                   fontWeight={"extrabold"}
                   color={"green.200"}
                 >
@@ -81,20 +81,20 @@ const ModalUpdateContact = () => {
                 </FormLabel>
                 <Input
                   placeholder="Digite seu email..."
-                  h={{ base: "80px", md: "30px" }}
+                  h={"30px"}
                   backgroundColor={"green.50"}
                   color={"green.100"}
-                  fontSize={{ base: "2xl", md: "xl" }}
+                  fontSize={"xl"}
                   fontWeight={"medium"}
                   {...register("email")}
                 />
-                <FormErrorMessage fontSize={{ base: "2xl", md: "lg" }}>
+                <FormErrorMessage fontSize={"lg"}>
                   {errors.email?.message}
                 </FormErrorMessage>
               </FormControl>
               <FormControl isInvalid={errors.phoneNumber ? true : false}>
                 <FormLabel
-                  fontSize={{ base: "2xl", md: "xl" }}
+                  fontSize={"xl"}
                   fontWeight={"extrabold"}
                   color={"green.200"}
                 >
@@ -102,20 +102,20 @@ const ModalUpdateContact = () => {
                 </FormLabel>
                 <Input
                   placeholder="Digite sua senha..."
-                  h={{ base: "80px", md: "30px" }}
+                  h={"30px"}
                   backgroundColor={"green.50"}
                   color={"green.100"}
-                  fontSize={{ base: "2xl", md: "xl" }}
+                  fontSize={"xl"}
                   fontWeight={"medium"}
                   {...register("phoneNumber")}
                 />
-                <FormErrorMessage fontSize={{ base: "2xl", md: "lg" }}>
+                <FormErrorMessage fontSize={"lg"}>
                   {errors.phoneNumber?.message}
                 </FormErrorMessage>
               </FormControl>
               <FormControl isInvalid={errors.name ? true : false}>
                 <FormLabel
-                  fontSize={{ base: "2xl", md: "xl" }}
+                  fontSize={"xl"}
                   fontWeight={"extrabold"}
                   color={"green.200"}
                 >
@@ -123,21 +123,21 @@ const ModalUpdateContact = () => {
                 </FormLabel>
                 <Input
                   placeholder="Digite sua senha..."
-                  h={{ base: "80px", md: "30px" }}
+                  h={"30px"}
                   backgroundColor={"green.50"}
                   color={"green.100"}
-                  fontSize={{ base: "2xl", md: "xl" }}
+                  fontSize={"xl"}
                   fontWeight={"medium"}
                   {...register("name")}
                 />
-                <FormErrorMessage fontSize={{ base: "2xl", md: "lg" }}>
+                <FormErrorMessage fontSize={"lg"}>
                   {errors.name?.message}
                 </FormErrorMessage>
               </FormControl>
               <Button
                 type="submit"
-                h={{ base: "80px", md: "30px" }}
-                fontSize={{ base: "2xl", md: "xl" }}
+                h={"30px"}
+                fontSize={"xl"}
                 backgroundColor={"green.50"}
                 color={"green.200"}
                 border={"1px solid"}

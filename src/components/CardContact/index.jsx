@@ -5,7 +5,7 @@ import { ContactContext } from "../../providers/ContactContext";
 import { useContext } from "react";
 
 const CardContact = ({ contact }) => {
-  const { setIsOpenModalUpdateContact, setContact } =
+  const { setIsOpenModalUpdateContact, setContact, deleteContact } =
     useContext(ContactContext);
 
   const handleOpenContact = () => {
@@ -88,7 +88,10 @@ const CardContact = ({ contact }) => {
               >
                 <PhoneIcon />
               </Button>
-              <Button backgroundColor="transparent">
+              <Button
+                backgroundColor="transparent"
+                onClick={() => deleteContact(contact)}
+              >
                 <DeleteIcon />
               </Button>
             </Flex>

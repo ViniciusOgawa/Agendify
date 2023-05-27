@@ -7,11 +7,18 @@ export const ContactContext = createContext({});
 export const ContactProvider = ({ children }) => {
   const [contacts, setContacts] = useState([]);
   const [contact, setContact] = useState({});
+  const [contactDeleted, setContactDeleted] = useState(false);
   const toast = useToast();
 
   const deleteContact = async (contact) => {
+    const token = localStorage.getItem("@TOKEN");
+
     try {
-      await api.delete("/login", contact.id);
+      await api.delete(`/contacts/${contact.id}`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
       toast({
         title: "Contato deletado com sucesso!",
         position: "top-right",
@@ -19,6 +26,7 @@ export const ContactProvider = ({ children }) => {
         duration: 5000,
         isClosable: true,
       });
+      setContactDeleted(true);
     } catch (error) {
       toast({
         title: "Erro ao deletar contato!",
@@ -39,9 +47,6 @@ export const ContactProvider = ({ children }) => {
     const token = localStorage.getItem("@TOKEN");
 
     for (const key in contactData) {
-      // if (contactData.hasOwnProperty(key) && contactData[key] === '') {
-      //     delete contactData[key];
-      // }
       if (key in contactData && contactData[key] === "") {
         delete contactData[key];
       }
@@ -82,9 +87,10 @@ export const ContactProvider = ({ children }) => {
 
   const createContact = async (contactData) => {
     const token = localStorage.getItem("@TOKEN");
+
     try {
       setLoadingCreateContact(true);
-      await api.patch(`/contacts`, contactData, {
+      await api.post(`/contacts`, contactData, {
         headers: {
           authorization: `Bearer ${token}`,
         },
@@ -107,6 +113,7 @@ export const ContactProvider = ({ children }) => {
       console.log(error);
     } finally {
       setLoadingCreateContact(false);
+      setIsOpenModalCreateContact(false);
     }
   };
 
@@ -127,6 +134,8 @@ export const ContactProvider = ({ children }) => {
         createContact,
         isOpenModalCreateContact,
         setIsOpenModalCreateContact,
+        contactDeleted,
+        setContactDeleted,
       }}
     >
       {children}

@@ -76,6 +76,13 @@ export const UserProvider = ({ children }) => {
 
   const updateContact = async (userData) => {
     const token = localStorage.getItem("@TOKEN");
+
+    for (const key in userData) {
+      if (key in userData && userData[key] === "") {
+        delete userData[key];
+      }
+    }
+
     try {
       setLoadingAttUser(true);
       await api.patch(`/users/${user.id}`, userData, {
@@ -101,6 +108,7 @@ export const UserProvider = ({ children }) => {
       console.log(error);
     } finally {
       setLoadingAttUser(false);
+      setIsOpenModalUser(false);
     }
   };
 
